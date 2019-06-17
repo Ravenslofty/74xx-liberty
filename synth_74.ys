@@ -1,0 +1,20 @@
+hierarchy -auto-top
+proc
+flatten
+opt
+wreduce
+opt
+pmux2shiftx
+read_verilog -lib ../74_models.v
+techmap -map ../74_adder.v
+synth -run :fine
+opt -full
+memory_map
+opt -full
+techmap -map +/techmap.v
+opt
+muxcover
+opt
+techmap -map ../74_mux.v
+dfflibmap -liberty ../74series.lib
+abc -liberty ../74series.lib

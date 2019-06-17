@@ -7,6 +7,7 @@ library(demo) {
         pin(Y) { direction: output; function: "(A*B)'"; }
      }
 
+    /*
     // 7401 quad 2-input NAND gate, open-collector, two wired-AND
     cell(7401_4x2NAND2_WA2) {
         area: 6;
@@ -41,7 +42,7 @@ library(demo) {
         pin(G) { direction: input; }
         pin(H) { direction: input; }
         pin(Y) { direction: output; function: "(A*B)'*(C*D)'*(E*F)'*(G*H)'"; }
-    }
+    } */
 
     // 7402 quad 2-input NOR gate
     cell(7402_4x1NOR2) {
