@@ -6,14 +6,15 @@ wreduce
 opt
 dffsr2dff
 dff2dffe
+dff2dffe -unmap-mince 8
 pmux2shiftx
 read_verilog -lib ../74_models.v
-techmap -map ../74_adder.v -map ../74_dffe.v
+techmap -map ../74_adder.v
 synth -run :fine
 opt -full
 memory_map
 opt -full
-techmap -map +/techmap.v
+techmap -map +/techmap.v -map ../74_dffe.v
 opt
 muxcover -mux4 -mux8
 opt
