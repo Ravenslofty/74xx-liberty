@@ -1,74 +1,53 @@
 library(demo) {
-    // 7400 quad 2-input NAND gate
-    cell(7400_4x1NAND2) {
+    voltage_unit(1V);
+    technology("cmos");
+    // delay_model: table_lookup;
+    slew_lower_threshold_pct_fall: 30;
+    slew_upper_threshold_pct_fall: 30;
+    slew_lower_threshold_pct_rise: 70;
+    slew_upper_threshold_pct_rise: 70;
+
+    // 74AC11000 quad 2-input NAND gate
+    cell(74AC11000_4x1NAND2) {
         area: 3;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
         pin(Y) { direction: output; function: "(A*B)'"; }
      }
 
-    /*
-    // 7401 quad 2-input NAND gate, open-collector, two wired-AND
-    cell(7401_4x2NAND2_WA2) {
-        area: 6;
-        pin(A) { direction: input; }
-        pin(B) { direction: input; }
-        pin(C) { direction: input; }
-        pin(D) { direction: input; }
-        pin(Y) { direction: output; function: "(A*B)'*(C*D)'"; }
-    }
-
-    // 7401 quad 2-input NAND gate, open-collector, three wired-AND
-    cell(7401_4x3NAND2_WA3) {
-        area: 9;
-        pin(A) { direction: input; }
-        pin(B) { direction: input; }
-        pin(C) { direction: input; }
-        pin(D) { direction: input; }
-        pin(E) { direction: input; }
-        pin(F) { direction: input; }
-        pin(Y) { direction: output; function: "(A*B)'*(C*D)'*(E*F)'"; }
-    }
-
-    // 7401 quad 2-input NAND gate, open-collector, four wired-AND
-    cell(7401_4x4NAND2_WA4) {
-        area: 12;
-        pin(A) { direction: input; }
-        pin(B) { direction: input; }
-        pin(C) { direction: input; }
-        pin(D) { direction: input; }
-        pin(E) { direction: input; }
-        pin(F) { direction: input; }
-        pin(G) { direction: input; }
-        pin(H) { direction: input; }
-        pin(Y) { direction: output; function: "(A*B)'*(C*D)'*(E*F)'*(G*H)'"; }
-    } */
-
-    // 7402 quad 2-input NOR gate
-    cell(7402_4x1NOR2) {
+    // 74AC02 quad 2-input NOR gate
+    cell(74AC02_4x1NOR2) {
         area: 3;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
         pin(Y) { direction: output; function: "(A+B)'"; }
     }
 
-    // 7404 hex inverter
-    cell(7404_6x1NOT) {
+    // 74AC11004 hex inverter
+    cell(74AC11004_6x1NOT) {
         area: 2;
         pin(A) { direction: input; }
-        pin(Y) { direction: output; function: "A'"; }
+        pin(Y) {
+           direction: output;
+           function: "A'";
+           /* timing() {
+               timing_type: combinational;
+               timing_sense: negative_unate;
+               related_pin: "A";      
+           } */
+        }
     }
 
-    // 7408 quad 2-input AND
-    cell(7408_4x1AND2) {
+    // 74AC11008 quad 2-input AND
+    cell(74AC11008_4x1AND2) {
         area: 3;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
         pin(Y) { direction: output; function: "A*B"; }
     }
 
-    // 7410 triple 3-input NAND
-    cell(7410_3x1NAND3) {
+    // 74AC10 triple 3-input NAND
+    cell(74AC10_3x1NAND3) {
         area: 4;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
@@ -76,8 +55,8 @@ library(demo) {
         pin(Y) { direction: output; function: "((A*B)'*C)'"; }
     }
 
-    // 7411 triple 3-input AND
-    cell(7411_3x1AND3) {
+    // 74AC11 triple 3-input AND
+    cell(74AC11_3x1AND3) {
         area: 4;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
@@ -85,8 +64,8 @@ library(demo) {
         pin(Y) { direction: output; function: "A*B*C"; }
     }
 
-    // 7420 dual 4-input NAND
-    cell(7420_2x1NAND4) {
+    // 74AC20 dual 4-input NAND
+    cell(74AC20_2x1NAND4) {
         area: 5;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
@@ -95,68 +74,41 @@ library(demo) {
         pin(Y) { direction: output; function: "(((A*B)'*C)'*D)'"; }
     }
 
-    // 7421 dual 4-input AND
-    cell(7421_2x1AND4) {
-        area: 5;
-        pin(A) { direction: input; }
-        pin(B) { direction: input; }
-        pin(C) { direction: input; }
-        pin(D) { direction: input; }
-        pin(Y) { direction: output; function: "(((A*B)*C)*D)"; }
-    }
-
-    // 7427 triple 3-input NOR
-    cell(7427_3x1NOR3) {
-        area: 4;
-        pin(A) { direction: input; }
-        pin(B) { direction: input; }
-        pin(C) { direction: input; }
-        pin(Y) { direction: output; function: "((A+B)'+C)'"; }
-    }
-
-    // 7429 dual 4-input NOR
-    cell(7429_2x1NOR4) {
-        area: 5;
-        pin(A) { direction: input; }
-        pin(B) { direction: input; }
-        pin(C) { direction: input; }
-        pin(D) { direction: input; }
-        pin(Y) { direction: output; function: "(((A+B)'+C)'+D)'"; }
-    }
-
-    // 7430 single 8-input NAND
-    cell(7430_1x1NAND8) {
-        area: 9;
-        pin(A) { direction: input; }
-        pin(B) { direction: input; }
-        pin(C) { direction: input; }
-        pin(D) { direction: input; }
-        pin(E) { direction: input; }
-        pin(F) { direction: input; }
-        pin(G) { direction: input; }
-        pin(H) { direction: input; }
-        pin(Y) { direction: output;
-           function: "(((((((A*B)'*C)'*D)'*E)'*F)'*G)'*H)'"; }
-    }
-
-    // 7432 quad 2-input OR gate
-    cell(7432_4x1OR2) {
+    // 74AC11032 quad 2-input OR gate
+    cell(74AC11032_4x1OR2) {
         area: 3;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
         pin(Y) { direction: output; function: "(A+B)"; }
     }
 
-    // 7486 quad 2-input XOR gate
-    cell(7486_4x1XOR2) {
+    // 74AC11074 dual D flip-flop with set and reset
+    cell(74AC11074_2x1DFFSR) {
+        ff(IQ, IQN) {
+           clocked_on: "CLK";
+           next_state: "D";
+           clear: "C'";
+           preset: "P'";
+           clear_preset_var1: H;
+           clear_preset_var2: H;
+        }
+        pin(CLK) { direction: input; clock: true; }
+        pin(C) { direction: input; }
+        pin(P) { direction: input; }
+        pin(D) { direction: input; }
+        pin(Q) { direction: output; function: "IQ"; }
+    } 
+
+    // 74AC11086 quad 2-input XOR gate
+    cell(74AC11086_4x1XOR2) {
         area: 3;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
         pin(Y) { direction: output; function: "(A^B)"; }
     }
 
-    // 74151 single 8:1 multiplexer
-    cell(74151_1x1MUX8) {
+    // 74AC151 single 8:1 multiplexer
+    cell(74AC151_1x1MUX8) {
         area: 12;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
@@ -173,8 +125,27 @@ library(demo) {
         function: "(S0'*S1'*S2'*A)+(S0'*S1'*S2*B)+(S0'*S1*S2'*C)+(S0'*S1*S2*D)+(S0*S1'*S2'*E)+(S0*S1'*S2*F)+(S0*S1*S2'*G)+(S0*S1*S2*H)"; }
     }
 
-    // 74153 dual 4:1 multiplexer
-    cell(74153_2x1MUX4) {
+    // 74AC151 single 8:1 multiplexer, inverting output
+    cell(74AC151_1x1MUXI8) {
+        area: 12;
+        pin(A) { direction: input; }
+        pin(B) { direction: input; }
+        pin(C) { direction: input; }
+        pin(D) { direction: input; }
+        pin(E) { direction: input; }
+        pin(F) { direction: input; }
+        pin(G) { direction: input; }
+        pin(H) { direction: input; }
+        pin(S0) { direction: input; }
+        pin(S1) { direction: input; }
+        pin(S2) { direction: input; }
+        pin(Y) { direction: output;
+        function: "((S0'*S1'*S2'*A)+(S0'*S1'*S2*B)+(S0'*S1*S2'*C)+(S0'*S1*S2*D)+(S0*S1'*S2'*E)+(S0*S1'*S2*F)+(S0*S1*S2'*G)+(S0*S1*S2*H))'"; }
+    }
+
+
+    // 74AC153 dual 4:1 multiplexer
+    cell(74AC153_2x1MUX4) {
         area: 7;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
@@ -185,8 +156,8 @@ library(demo) {
         pin(Y) { direction: output; function: "((S0'*S1'*A)+(S0'*S1*B)+(S0*S1'*C)+(S0*S1*D))"; }
     }
 
-    // 74157 quad 2:1 multiplexer
-    cell(74157_4x1MUX2) {
+    // 74AC11257 quad 2:1 multiplexer
+    cell(74AC11257_4x1MUX2) {
         area: 4;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
@@ -194,20 +165,28 @@ library(demo) {
         pin(Y) { direction: output; function: "(S'*A)+(S*B)"; }
     }
 
-    // 74367 hex buffer
-    cell(74367_6x1BUF) {
+    // 74AC11258 quad 2:1 multiplexer, inverting
+    cell(74AC11258_4x1MUXI2) {
+        area: 4;
+        pin(A) { direction: input; }
+        pin(B) { direction: input; }
+        pin(S) { direction: input; }
+        pin(Y) { direction: output; function: "((S'*A)+(S*B))'"; }
+    }
+
+    // 74AC11244 octal buffer
+    cell(74AC11244_8x1BUF) {
         area: 2;
         pin(A) { direction: input; }
         pin(Y) { direction: output; function: "A"; }
     }
 
-    // 74574 octal D flip-flop
-    cell(74574_8x1DFF) {
+    // 7416373 sixteen D flip-flop
+    cell(74AC16373_16x1DFF) {
         area: 4;
         ff(IQ, IQN) { clocked_on: CLK; next_state: D; }
         pin(CLK) { direction: input; clock: true; }
         pin(D) { direction: input; }
         pin(Q) { direction: output; function: "IQ"; }
     }
-
 }

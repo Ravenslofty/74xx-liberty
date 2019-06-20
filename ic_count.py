@@ -6,7 +6,7 @@ import re
 IC_LIST = dict()
 
 for line in fileinput.input():
-    match = re.search(r"^\s*\\(\d+)_(\d+)x(\d+)\S+\s*(\d+)", line)
+    match = re.search(r"^\s*\\(\S+)_(\d+)x(\d+)\S+\s*(\d+)", line)
 
     if not match:
         continue

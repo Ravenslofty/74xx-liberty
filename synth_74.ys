@@ -13,8 +13,9 @@ memory_map
 opt -full
 techmap -map +/techmap.v
 opt
-muxcover
+muxcover -mux4 -mux8
 opt
 techmap -map ../74_mux.v
 dfflibmap -liberty ../74series.lib
-abc -liberty ../74series.lib
+abc -liberty ../74series.lib -D 100000
+opt -full
