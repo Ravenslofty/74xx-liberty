@@ -33,3 +33,16 @@ output CO;
 assign {CO, S} = A + B + CI;
 
 endmodule
+
+module \74AC377_8x1DFFE (D, CE, CP, Q);
+
+input D;
+input CE;
+input CP;
+output reg Q;
+
+always @(posedge CP) begin
+    if (!CE) Q <= D;
+end
+
+endmodule

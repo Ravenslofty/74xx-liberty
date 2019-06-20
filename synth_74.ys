@@ -5,9 +5,10 @@ opt
 wreduce
 opt
 dffsr2dff
+dff2dffe
 pmux2shiftx
 read_verilog -lib ../74_models.v
-techmap -map ../74_adder.v
+techmap -map ../74_adder.v -map ../74_dffe.v
 synth -run :fine
 opt -full
 memory_map

@@ -183,8 +183,8 @@ library(demo) {
 
     // 7416373 sixteen D flip-flop
     cell(74AC16373_16x1DFF) {
-        area: 4;
-        ff(IQ, IQN) { clocked_on: "CLK"; next_state: D; }
+        area: 3;
+        ff(IQ, IQN) { clocked_on: "CLK"; next_state: "D"; }
         pin(CLK) { direction: input; clock: true; }
         pin(D) { direction: input; }
         pin(Q) { direction: output; function: "IQ"; }
