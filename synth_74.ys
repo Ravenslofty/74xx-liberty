@@ -4,6 +4,7 @@ flatten
 opt
 wreduce
 opt
+dffsr2dff
 pmux2shiftx
 read_verilog -lib ../74_models.v
 techmap -map ../74_adder.v

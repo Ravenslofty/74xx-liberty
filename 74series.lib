@@ -165,8 +165,8 @@ library(demo) {
         pin(Y) { direction: output; function: "(S'*A)+(S*B)"; }
     }
 
-    // 74AC11258 quad 2:1 multiplexer, inverting
-    cell(74AC11258_4x1MUXI2) {
+    // 74AC158 quad 2:1 multiplexer, inverting
+    cell(74AC158_4x1MUXI2) {
         area: 4;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
@@ -184,7 +184,7 @@ library(demo) {
     // 7416373 sixteen D flip-flop
     cell(74AC16373_16x1DFF) {
         area: 4;
-        ff(IQ, IQN) { clocked_on: CLK; next_state: D; }
+        ff(IQ, IQN) { clocked_on: "CLK"; next_state: D; }
         pin(CLK) { direction: input; clock: true; }
         pin(D) { direction: input; }
         pin(Q) { direction: output; function: "IQ"; }

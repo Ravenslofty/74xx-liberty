@@ -19,8 +19,8 @@ wire [Y_WIDTH-1:0] A_buf, B_buf;
 \$pos #(.A_SIGNED(A_SIGNED), .A_WIDTH(A_WIDTH), .Y_WIDTH(Y_WIDTH)) A_conv (.A(A), .Y(A_buf));
 \$pos #(.A_SIGNED(B_SIGNED), .A_WIDTH(B_WIDTH), .Y_WIDTH(Y_WIDTH)) B_conv (.A(B), .Y(B_buf));
 
-wire [Y_WIDTH-1:0] AA = A_buf;
-wire [Y_WIDTH-1:0] BB = B_buf;
+wire [WIDTH-1:0] AA = A_buf;
+wire [WIDTH-1:0] BB = B_buf;
 wire [WIDTH-1:0] YY;
 wire [WIDTH:0] C;
 
