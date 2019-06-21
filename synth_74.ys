@@ -14,8 +14,8 @@ techmap -map ../74_adder.v
 synth -run :fine
 opt -full
 # memory_map
-opt -full
-techmap -map +/techmap.v -map ../74_dffe.v
+# opt -full
+techmap -map +/techmap.v -map ../74_dffe.v 
 opt
 muxcover -mux4 -mux8
 opt

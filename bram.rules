@@ -1,0 +1,17 @@
+bram IDT7132_1x1MEM8
+    init 0
+    abits 10
+    dbits 8
+    groups 2
+    ports 1 1
+    wrmode 1 0
+    enable 2 2
+    transp 0 1
+    clocks 1 0
+    clkpol 1 1
+endbram
+
+match IDT7132_1x1MEM8
+    make_transp
+    make_outreg
+endmatch
