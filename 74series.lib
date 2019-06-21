@@ -1,11 +1,19 @@
-library(demo) {
-    voltage_unit(1V);
+library(74series) {
     technology("cmos");
-    // delay_model: table_lookup;
+
+    time_unit: "1ns";
+    voltage_unit: "1V";
+    current_unit: "1mA";
+    capacitive_load_unit(1, pf);
+
     slew_lower_threshold_pct_fall: 30;
     slew_upper_threshold_pct_fall: 30;
     slew_lower_threshold_pct_rise: 70;
     slew_upper_threshold_pct_rise: 70;
+
+    nom_process: 1;
+    nom_temperature: 25;
+    nom_voltage: 5;
 
     // 74AC11000 quad 2-input NAND gate
     cell(74AC11000_4x1NAND2) {
@@ -26,14 +34,21 @@ library(demo) {
     // 74AC11004 hex inverter
     cell(74AC11004_6x1NOT) {
         area: 2;
-        pin(A) { direction: input; }
+        pin(A) {
+           direction: input;
+           capacitance: 3.5;
+        }
         pin(Y) {
            direction: output;
+           capacitance: 0.0;
+           max_capacitance: 29.0;
            function: "A'";
            /* timing() {
-               timing_type: combinational;
-               timing_sense: negative_unate;
-               related_pin: "A";      
+               timing_type: "combinational";
+               timing_sense: "negative_unate";
+               related_pin: "A";
+               intrinsic_rise: 1.5;
+               intrinsic_fall: 1.5;
            } */
         }
     }
@@ -104,7 +119,7 @@ library(demo) {
         area: 3;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
-        pin(Y) { direction: output; function: "(A^B)"; }
+        pin(Y) { direction: output; function: "(A*B')+(A'*B)"; }
     }
 
     // 74AC151 single 8:1 multiplexer

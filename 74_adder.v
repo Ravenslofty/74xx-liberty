@@ -11,7 +11,7 @@ input [A_WIDTH-1:0] A;
 input [B_WIDTH-1:0] B;
 output [Y_WIDTH-1:0] Y;
 
-wire _TECHMAP_FAIL_ = Y_WIDTH <= 1 || A_WIDTH <= 1 || B_WIDTH <= 1;
+wire _TECHMAP_FAIL_ = Y_WIDTH <= 1;
 
 localparam WIDTH = ((Y_WIDTH + 3) / 4) * 4;
 

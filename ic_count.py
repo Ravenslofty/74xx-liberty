@@ -6,12 +6,15 @@ import re
 IC_LIST = dict()
 
 for line in fileinput.input():
-    match = re.search(r"^\s*\\(\S+)_(\d+)x(\d+)\S+\s*(\d+)", line)
+    match = re.search(r"^\s*(\S+)_(\d+)x(\d*)\S+\s*(\d+)", line)
 
     if not match:
         continue
 
     part_number, gates_per_ic, gates_per_combo, combo_count = match.groups()
+
+    if gates_per_combo == '':
+        gates_per_combo = "1"
 
     if part_number not in IC_LIST:
         IC_LIST[part_number] = (
