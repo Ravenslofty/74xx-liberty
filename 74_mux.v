@@ -5,9 +5,13 @@ input A, B, C, D, S, T;
 output Y;
 
 \74AC153_2x1MUX4 _TECHMAP_REPLACE_ (
-    .S({T, S}),
-    .D({D, C, B, A}),
-    .O(Y)
+    .A(A),
+    .B(B),
+    .C(C),
+    .D(D),
+    .S0(S),
+    .S1(T),
+    .Y(Y)
 );
 
 endmodule
@@ -19,9 +23,18 @@ input A, B, C, D, E, F, G, H, S, T, U;
 output Y;
 
 \74AC151_1x1MUX8 _TECHMAP_REPLACE_ (
-    .S({U, T, S}),
-    .D({H, G, F, E, D, C, B, A}),
-    .O(Y)
+    .A(A),
+    .B(B),
+    .C(C),
+    .D(D),
+    .E(E),
+    .F(F),
+    .G(G),
+    .H(H),
+    .S0(S),
+    .S1(T),
+    .S2(U),
+    .Y(Y)
 );
 
 endmodule

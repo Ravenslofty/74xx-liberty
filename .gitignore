@@ -1,0 +1,4 @@
+stat/*.stat
+sim/*.v
+sim/*.vcd
+sim/*.vvp
