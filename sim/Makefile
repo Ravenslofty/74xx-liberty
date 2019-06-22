@@ -1,7 +1,7 @@
 .PHONY: all clean sim_counter
 .SECONDARY:
 
-all: sim_counter sim_picorv32
+all: counter.vcd cic5.vcd dspmac_16_40.vcd pwm256.vcd sddac.vcd picorv32.vcd
 
 %.v: ../%.lib
 	yosys -q -p "read_liberty $<" -p "write_verilog $@"
@@ -14,11 +14,8 @@ all: sim_counter sim_picorv32
 %.vvp: %.v ../benchmarks/%_tb.v 74series.v ../74_models.v
 	iverilog -o $@ $^
 
-sim_counter: counter.vvp
-	vvp counter.vvp
-
-sim_picorv32: picorv32.vvp
-	vvp picorv32.vvp
+%.vcd: %.vvp
+	vvp $<
 
 clean:
 	rm *.v *.vvp *.vcd
