@@ -54,6 +54,7 @@
  * picorv32
  ***************************************************************/
 
+(* top *)
 module picorv32 #(
 	parameter [ 0:0] ENABLE_COUNTERS = 1,
 	parameter [ 0:0] ENABLE_COUNTERS64 = 1,
