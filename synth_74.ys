@@ -10,6 +10,7 @@ opt_merge
 dff2dffe -unmap-mince 8
 pmux2shiftx
 read_verilog -lib ../74_models.v
+read_liberty -lib ../74series.lib
 techmap -map ../74_adder.v
 synth -run :fine
 opt -full
