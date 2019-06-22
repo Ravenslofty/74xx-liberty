@@ -137,7 +137,7 @@ library(74series) {
         pin(S1) { direction: input; }
         pin(S2) { direction: input; }
         pin(Y) { direction: output;
-        function: "(S0'*S1'*S2'*A)+(S0'*S1'*S2*B)+(S0'*S1*S2'*C)+(S0'*S1*S2*D)+(S0*S1'*S2'*E)+(S0*S1'*S2*F)+(S0*S1*S2'*G)+(S0*S1*S2*H)"; }
+        function: "(S0'*S1'*S2'*A)+(S0*S1'*S2'*B)+(S0'*S1*S2'*C)+(S0*S1*S2'*D)+(S0'*S1'*S2*E)+(S0*S1'*S2'*F)+(S0'*S1*S2*G)+(S0*S1*S2*H)"; }
     }
 
     // 74AC151 single 8:1 multiplexer, inverting output
@@ -155,7 +155,7 @@ library(74series) {
         pin(S1) { direction: input; }
         pin(S2) { direction: input; }
         pin(Y) { direction: output;
-        function: "((S0'*S1'*S2'*A)+(S0'*S1'*S2*B)+(S0'*S1*S2'*C)+(S0'*S1*S2*D)+(S0*S1'*S2'*E)+(S0*S1'*S2*F)+(S0*S1*S2'*G)+(S0*S1*S2*H))'"; }
+        function: "((S0'*S1'*S2'*A)+(S0*S1'*S2'*B)+(S0'*S1*S2'*C)+(S0*S1*S2'*D)+(S0'*S1'*S2*E)+(S0*S1'*S2'*F)+(S0'*S1*S2*G)+(S0*S1*S2*H))'"; }
     }
 
 
@@ -168,7 +168,7 @@ library(74series) {
         pin(D) { direction: input; }
         pin(S0) { direction: input; }
         pin(S1) { direction: input; }
-        pin(Y) { direction: output; function: "((S0'*S1'*A)+(S0'*S1*B)+(S0*S1'*C)+(S0*S1*D))"; }
+        pin(Y) { direction: output; function: "((S0'*S1'*A)+(S0*S1'*B)+(S0'*S1*C)+(S0*S1*D))"; }
     }
 
     // 74AC11257 quad 2:1 multiplexer
