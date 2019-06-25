@@ -13,7 +13,7 @@ module counter (
     reg state;
     
     /* assign */
-    assign led = state;
+    assign led = counter[7];
     
     /* always */
     always @ (posedge clk or negedge rst) begin
@@ -21,7 +21,6 @@ module counter (
         counter <= 0;
       end else begin
         counter <= counter + 1;
-        state <= counter[7];
       end
     end
 
