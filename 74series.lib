@@ -99,6 +99,7 @@ library(74series) {
 
     // 74AC11074 dual D flip-flop with set and reset
     cell(74AC11074_2x1DFFSR) {
+        area: 5;
         ff(IQ, IQN) {
            clocked_on: "CLK";
            next_state: "D";
@@ -110,6 +111,20 @@ library(74series) {
         pin(CLK) { direction: input; clock: true; }
         pin(C) { direction: input; }
         pin(P) { direction: input; }
+        pin(D) { direction: input; }
+        pin(Q) { direction: output; function: "IQ"; }
+    }
+
+    // 74AC273 octal D flip-flop with common reset
+    cell(74AC273_8x1DFFR) {
+	area: 2.25; // amortized clock and reset cost
+        ff(IQ, IQN) {
+           clocked_on: "CLK";
+           next_state: "D";
+           clear: "C'";
+        }
+        pin(CLK) { direction: input; clock: true; }
+        pin(C) { direction: input; }
         pin(D) { direction: input; }
         pin(Q) { direction: output; function: "IQ"; }
     } 
@@ -198,7 +213,7 @@ library(74series) {
 
     // 7416374 sixteen D flip-flop
     cell(74AC16374_16x1DFF) {
-        area: 3;
+        area: 2.0625; // amortized clock pin cost
         ff(IQ, IQN) { clocked_on: "CLK"; next_state: "D"; }
         pin(CLK) { direction: input; clock: true; }
         pin(D) { direction: input; }

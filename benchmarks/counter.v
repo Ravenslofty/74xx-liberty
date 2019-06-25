@@ -16,8 +16,8 @@ module counter (
     assign led = state;
     
     /* always */
-    always @ (posedge clk) begin
-      if (rst) begin
+    always @ (posedge clk or negedge rst) begin
+      if (!rst) begin
         counter <= 0;
       end else begin
         counter <= counter + 1;
