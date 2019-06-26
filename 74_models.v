@@ -1,3 +1,16 @@
+module \74HC85_1x1CMP4 (A, B, Li, Ei, Gi, Lo, Eo, Go);
+
+input [3:0] A;
+input [3:0] B;
+input Li, Ei, Gi;
+output Lo, Eo, Go;
+
+assign Lo = (A < B) || (A == B && !Gi && !Ei);
+assign Go = (A > B) || (A == B && !Li && !Ei);
+assign Eo = (A == B) && Ei;
+
+endmodule
+
 module \74AC283_1x1ADD4 (A, B, CI, S, CO);
 
 input [3:0] A;

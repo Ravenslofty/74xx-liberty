@@ -28,7 +28,7 @@ assign C[0] = 0;
 
 genvar i;
 generate for (i = 0; i < WIDTH; i = i + 4) begin:slice
-    \74AC283_1x1ADD4 adder_i (
+    \74AC283_1x1ADD4 adder_i(
         .A(AA[i+3:i]),
         .B(BB[i+3:i]),
         .CI(C[i]),
