@@ -9,12 +9,16 @@ parameter B_SIGNED = 0;
 parameter A_WIDTH = 0;
 parameter B_WIDTH = 0;
 parameter Y_WIDTH = 0;
+parameter _TECHMAP_CONSTMSK_A_ = 0;
+parameter _TECHMAP_CONSTVAL_A_ = 0;
+parameter _TECHMAP_CONSTMSK_B_ = 0;
+parameter _TECHMAP_CONSTVAL_B_ = 0;
 
 input [A_WIDTH-1:0] A;
 input [B_WIDTH-1:0] B;
 output [Y_WIDTH-1:0] Y;
 
-wire _TECHMAP_FAIL_ = A_WIDTH <= 6 && B_WIDTH <= 6;
+wire _TECHMAP_FAIL_ = (A_WIDTH <= 6 && B_WIDTH <= 6) || &_TECHMAP_CONSTMSK_A_ || &_TECHMAP_CONSTMSK_B_;
 
 localparam WIDTH = ((Y_WIDTH + 7) / 8) * 8;
 
@@ -52,12 +56,16 @@ parameter B_SIGNED = 0;
 parameter A_WIDTH = 0;
 parameter B_WIDTH = 0;
 parameter Y_WIDTH = 0;
+parameter _TECHMAP_CONSTMSK_A_ = 0;
+parameter _TECHMAP_CONSTVAL_A_ = 0;
+parameter _TECHMAP_CONSTMSK_B_ = 0;
+parameter _TECHMAP_CONSTVAL_B_ = 0;
 
 input [A_WIDTH-1:0] A;
 input [B_WIDTH-1:0] B;
 output [Y_WIDTH-1:0] Y;
 
-wire _TECHMAP_FAIL_ = A_WIDTH <= 8 && B_WIDTH <= 8;
+wire _TECHMAP_FAIL_ = (A_WIDTH <= 6 && B_WIDTH <= 6) || &_TECHMAP_CONSTMSK_A_ || &_TECHMAP_CONSTMSK_B_;
 
 localparam WIDTH = ((Y_WIDTH + 7) / 8) * 8;
 
