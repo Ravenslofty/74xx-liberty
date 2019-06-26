@@ -38,7 +38,7 @@ def make_abc(fnew, mapping, instances, nets):
     chip = fnew()
     idx = 0
     for inst in instances:
-        if not hasattr(chip, "D%d"%idx):
+        if not hasattr(chip, next(iter(mapping)).format(idx)):
             chip = fnew()
             idx = 0
 
