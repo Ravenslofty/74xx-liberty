@@ -34,16 +34,17 @@ def group_by(key, data):
         groups.setdefault(key(val), []).append(val)
     return groups
 
-def make_abc(fnew, mapping, instances, nets):
+def make_abc(fnew, mapping, instances, nets, base=0):
     chip = fnew()
-    idx = 0
+    idx = base
     for inst in instances:
-        if not hasattr(chip, next(iter(mapping)).format(idx)):
+        if not chip[next(iter(mapping)).format(idx)]:
             chip = fnew()
-            idx = 0
+            idx = base
 
         for ch, nl in mapping.items():
             chip[ch.format(idx)] += nets[inst['connections'][nl][0]]
+
         idx+=1
 
 def make_techmap(fnew, mapping, instances, nets, base=0):
@@ -67,6 +68,26 @@ def new_74273():
     chip = skidl.Part('74xx', '74LS273', footprint="Package_DIP:DIP-20_W7.62mm")
     chip.VCC += VCC
     chip.GND += GND
+    return chip
+
+def new_7486():
+    "quad XOR"
+    chip = skidl.Part('74xx', '74LS86', footprint="Package_DIP:DIP-14_W7.62mm")
+    chip.VCC += VCC
+    chip.GND += GND
+    # this thing has no pin names so we assign them manually
+    chip[1].name = '1A'
+    chip[2].name = '1B'
+    chip[3].name = '1Y'
+    chip[4].name = '2A'
+    chip[5].name = '2B'
+    chip[6].name = '2Y'
+    chip[8].name = '3Y'
+    chip[9].name = '3A'
+    chip[10].name = '3B'
+    chip[11].name = '4Y'
+    chip[12].name = '4A'
+    chip[13].name = '4B'
     return chip
 
 def new_74283():
@@ -98,6 +119,9 @@ def create_chips(chip_types, nets):
             clocks = group_by(pin_getter("CLK", "C"), chips)
             for instances in clocks.values():
                 make_abc(new_74273, mapping, instances, nets)
+        elif typ == '\\74AC11086_4x1XOR2':
+            mapping = {"{}A": "A", "{}B": "B", "{}Y": "Y"}
+            make_abc(new_7486, mapping, chips, nets, 1)
         elif typ == '\\74AC283_1x1ADD4':
             mapping = {"C0": "CI", "C4": "CO", "A{}": "A", "B{}": "B", "S{}": "S"}
             make_techmap(new_74283, mapping, chips, nets, 1)
