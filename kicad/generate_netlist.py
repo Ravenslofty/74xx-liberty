@@ -35,10 +35,12 @@ def group_by(key, data):
     return groups
 
 def make_abc(fnew, mapping, instances, nets, base=0):
+    new_cap()
     chip = fnew()
     idx = base
     for inst in instances:
         if not chip[next(iter(mapping)).format(idx)]:
+            new_cap()
             chip = fnew()
             idx = base
 
@@ -49,11 +51,18 @@ def make_abc(fnew, mapping, instances, nets, base=0):
 
 def make_techmap(fnew, mapping, instances, nets, base=0):
     for inst in instances:
+        new_cap()
         chip = fnew()
         for ch, nl in mapping.items():
             for i, a in enumerate(inst['connections'][nl]):
                 chip[ch.format(i+base)] += nets[a]
 
+
+def new_cap():
+    "a decoupling capacitor"
+    chip = skidl.Part('Device', 'C', footprint="Capacitor_THT:C_Disc_D4.7mm_W2.5mm_P5.00mm")
+    chip[1] += VCC
+    chip[2] += GND
 
 def new_74374():
     "8-bit DFF"
