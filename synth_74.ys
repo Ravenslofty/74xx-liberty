@@ -7,7 +7,7 @@ opt
 dffsr2dff
 dff2dffe
 opt_merge
-dff2dffe -unmap-mince 8
+#dff2dffe -unmap-mince 8
 pmux2shiftx
 read_verilog -lib ../74_models.v
 read_liberty -lib ../74series.lib
@@ -17,7 +17,8 @@ opt -full
 # memory_map
 # opt -full
 techmap -map +/techmap.v
-shregmap -maxlen 8 -clkpol pos
+shregmap -maxlen 8 -clkpol pos -enpol none
+shregmap -maxlen 8 -clkpol pos -enpol pos
 techmap -map ../74_shreg.v -map ../74_dffe.v
 opt
 muxcover -mux4 -mux8
