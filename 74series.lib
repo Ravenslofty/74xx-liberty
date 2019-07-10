@@ -67,7 +67,7 @@ library(74series) {
         pin(A) { direction: input; }
         pin(B) { direction: input; }
         pin(C) { direction: input; }
-        pin(Y) { direction: output; function: "((A*B)'*C)'"; }
+        pin(Y) { direction: output; function: "(A*B*C)'"; }
     }
 
     // 74AC11 triple 3-input AND
@@ -86,7 +86,7 @@ library(74series) {
         pin(B) { direction: input; }
         pin(C) { direction: input; }
         pin(D) { direction: input; }
-        pin(Y) { direction: output; function: "(((A*B)'*C)'*D)'"; }
+        pin(Y) { direction: output; function: "(A*B*C*D)'"; }
     }
 
     // 74AC11032 quad 2-input OR gate
