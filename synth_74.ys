@@ -16,7 +16,9 @@ synth -run :fine
 opt -full
 # memory_map
 # opt -full
-techmap -map +/techmap.v -map ../74_dffe.v 
+techmap -map +/techmap.v
+shregmap -maxlen 8 -clkpol pos
+techmap -map ../74_shreg.v -map ../74_dffe.v
 opt
 muxcover -mux4 -mux8
 opt

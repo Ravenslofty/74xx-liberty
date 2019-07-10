@@ -44,3 +44,18 @@ output Q;
 assign Q = E || !(A == B);
 
 endmodule
+
+module \74AC164_1x1SHREG8 (DS, MRn, CP, Q);
+
+input [1:0] DS;
+input MRn, CP;
+output reg [7:0] Q;
+
+always @(posedge CP, negedge MRn) begin
+  if (MRn==1'b0)
+    Q = 8'h00;
+  else
+    Q = {&DS, Q[6:0]};
+end
+
+endmodule
