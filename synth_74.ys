@@ -16,11 +16,11 @@ synth -run :fine
 opt -full
 # memory_map
 # opt -full
+memory_bram -rules ../bram.rules
 techmap -map +/techmap.v -map ../74_dffe.v 
 opt
 muxcover -mux4 -mux8
 opt
-memory_bram -rules ../bram.rules
 techmap -map ../74_mux.v
 dfflibmap -liberty ../74series.lib
 abc -liberty ../74series.lib -D 100000
