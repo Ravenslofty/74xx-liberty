@@ -5,6 +5,8 @@ import os.path
 import pprint
 import pdb
 
+from parts import *
+
 def get_toplevel(data):
     top = None
     for mod in data['modules'].values():
@@ -12,10 +14,6 @@ def get_toplevel(data):
             top = mod
             break
     return top
-
-# create KiCad nets
-VCC = skidl.Net('VCC')
-GND = skidl.Net('GND')
 
 def create_nets(top):
     nets = {}
@@ -45,7 +43,12 @@ def make_abc(fnew, mapping, instances, nets, base=0):
             idx = base
 
         for ch, nl in mapping.items():
-            chip[ch.format(idx)] += nets[inst['connections'][nl][0]]
+            try:
+                chip[ch.format(idx)] += nets[inst['connections'][nl][0]]
+            except TypeError:
+                print("Pin", ch.format(idx), "not found")
+                print(chip)
+                raise
 
         idx+=1
 
@@ -57,62 +60,6 @@ def make_techmap(fnew, mapping, instances, nets, base=0):
             for i, a in enumerate(inst['connections'][nl]):
                 chip[ch.format(i+base)] += nets[a]
 
-
-def new_cap():
-    "a decoupling capacitor"
-    chip = skidl.Part('Device', 'C', footprint="Capacitor_THT:C_Disc_D4.7mm_W2.5mm_P5.00mm")
-    chip[1] += VCC
-    chip[2] += GND
-
-def new_74374():
-    "8-bit DFF"
-    chip = skidl.Part('74xx', '74LS374', footprint="Package_DIP:DIP-20_W7.62mm")
-    chip.VCC += VCC
-    chip.GND += GND
-    chip.OE += GND # enable
-    return chip
-
-def new_74273():
-    "8-bit DFF with clear"
-    chip = skidl.Part('74xx', '74LS273', footprint="Package_DIP:DIP-20_W7.62mm")
-    chip.VCC += VCC
-    chip.GND += GND
-    return chip
-
-def new_7486():
-    "quad XOR"
-    chip = skidl.Part('74xx', '74LS86', footprint="Package_DIP:DIP-14_W7.62mm")
-    chip.VCC += VCC
-    chip.GND += GND
-    # this thing has no pin names so we assign them manually
-    chip[1].name = '1A'
-    chip[2].name = '1B'
-    chip[3].name = '1Y'
-    chip[4].name = '2A'
-    chip[5].name = '2B'
-    chip[6].name = '2Y'
-    chip[8].name = '3Y'
-    chip[9].name = '3A'
-    chip[10].name = '3B'
-    chip[11].name = '4Y'
-    chip[12].name = '4A'
-    chip[13].name = '4B'
-    return chip
-
-def new_74283():
-    "4-bit adder"
-    chip = skidl.Part('74xx', '74LS283', footprint="Package_DIP:DIP-16_W7.62mm")
-    chip.VCC += VCC
-    chip.GND += GND
-    return chip
-
-def new_7485():
-    "4-bit magnitude comparator"
-    chip = skidl.Part('74xx', '74LS85', footprint="Package_DIP:DIP-16_W7.62mm")
-    chip.VCC += VCC
-    chip.GND += GND
-    return chip
-
 def pin_getter(*args):
     return lambda chip: tuple(chip['connections'][arg][0] for arg in args)
 
@@ -123,14 +70,81 @@ def create_chips(chip_types, nets):
             clocks = group_by(pin_getter("CLK"), chips)
             for instances in clocks.values():
                 make_abc(new_74374, mapping, instances, nets)
+        elif typ == '\\74AC377_8x1DFFE':
+            mapping = {"D{}":"D", "Q{}":"Q", "~E": "CE", "CP": "CP"}
+            clocks = group_by(pin_getter("CP", "CE"), chips)
+            for instances in clocks.values():
+                make_abc(new_74377, mapping, instances, nets)
         elif typ == '\\74AC273_8x1DFFR':
             mapping = {"D{}":"D", "Q{}":"Q", "Cp": "CLK", "~Mr": "C"}
             clocks = group_by(pin_getter("CLK", "C"), chips)
             for instances in clocks.values():
                 make_abc(new_74273, mapping, instances, nets)
+        elif typ == '\\74AC11074_2x1DFFSR':
+            mapping = {"D{}":"D", "Q{}":"Q", "C{}": "CLK", "~R{}": "C", "~S": "P"}
+            make_abc(new_7474, mapping, chips, nets, 1)
+        elif typ == '\\74AC11257_4x1MUX2':
+            mapping = {"{}A": "A", "{}B": "B", "{}Y": "Y", "S": "S"}
+            select = group_by(pin_getter("S"), chips)
+            for instances in select.values():
+                make_abc(new_74257, mapping, instances, nets, 1)
+        elif typ == '\\74AC158_4x1MUXI2':
+            mapping = {"{}A": "A", "{}B": "B", "{}Y": "Y", "S": "S"}
+            select = group_by(pin_getter("S"), chips)
+            for instances in select.values():
+                make_abc(new_74158, mapping, instances, nets, 1)
+        elif typ == '\\74AC153_2x1MUX4':
+            mapping = {"{}A": "A", "{}B": "B", "{}C": "C", "{}D": "D",
+                       "{}Y": "Y", "S0": "S0", "S1": "S1"}
+            select = group_by(pin_getter("S0", "S1"), chips)
+            for instances in select.values():
+                make_abc(new_74153, mapping, instances, nets, 1)
+        elif typ == '\\74AC151_1x1MUX8':
+            mapping = {"I0": "A", "I1": "B", "I2": "C", "I3": "D",
+                       "I4": "E", "I5": "F", "I6": "G", "I7": "H",
+                       "Z": "Y", "S0": "S0", "S1": "S1", "S2": "S2"}
+            select = group_by(pin_getter("S0", "S1", "S2"), chips)
+            for instances in select.values():
+                #ABC but only one mux per chip
+                make_techmap(new_74151, mapping, instances, nets)
+        elif typ == '\\74AC151_1x1MUXI8':
+            mapping = {"I0": "A", "I1": "B", "I2": "C", "I3": "D",
+                       "I4": "E", "I5": "F", "I6": "G", "I7": "H",
+                       "~Z": "Y", "S0": "S0", "S1": "S1", "S2": "S2"}
+            select = group_by(pin_getter("S0", "S1", "S2"), chips)
+            for instances in select.values():
+                #ABC but only one mux per chip
+                make_techmap(new_74151, mapping, instances, nets)
         elif typ == '\\74AC11086_4x1XOR2':
             mapping = {"{}A": "A", "{}B": "B", "{}Y": "Y"}
             make_abc(new_7486, mapping, chips, nets, 1)
+        elif typ == '\\74AC11004_6x1NOT':
+            mapping = {"{}A": "A", "{}Y": "Y"}
+            make_abc(new_7404, mapping, chips, nets, 1)
+        elif typ == '\\74AC02_4x1NOR2':
+            mapping = {"{}A": "A", "{}B": "B", "{}Y": "Y"}
+            make_abc(new_7402, mapping, chips, nets, 1)
+        elif typ == '\\74AC11_3x1AND3':
+            mapping = {"{}A": "A", "{}B": "B", "{}C": "C", "{}Y": "Y"}
+            make_abc(new_7411, mapping, chips, nets, 1)
+        elif typ == '\\74AC10_3x1NAND3':
+            mapping = {"{}A": "A", "{}B": "B", "{}C": "C", "{}Y": "Y"}
+            make_abc(new_7410, mapping, chips, nets, 1)
+        elif typ == '\\74AC20_2x1NAND4':
+            mapping = {"{}A": "A", "{}B": "B", "{}C": "C", "{}D": "D", "{}Y": "Y"}
+            make_abc(new_7420, mapping, chips, nets, 1)
+        elif typ == '\\74AC11032_4x1OR2':
+            mapping = {"{}A": "A", "{}B": "B", "{}Y": "Y"}
+            make_abc(new_7432, mapping, chips, nets, 1)
+        elif typ == '\\74AC11008_4x1AND2':
+            mapping = {"{}A": "A", "{}B": "B", "{}Y": "Y"}
+            make_abc(new_7408, mapping, chips, nets, 1)
+        elif typ == '\\74AC11000_4x1NAND2':
+            mapping = {"{}A": "A", "{}B": "B", "{}Y": "Y"}
+            make_abc(new_7400, mapping, chips, nets, 1)
+        elif typ == '\\74AC11244_8x1BUF':
+            mapping = {"A{}": "A", "Y{}": "Y"}
+            make_abc(new_74244, mapping, chips, nets, 1)
         elif typ == '\\74AC283_1x1ADD4':
             mapping = {"C0": "CI", "C4": "CO", "A{}": "A", "B{}": "B", "S{}": "S"}
             make_techmap(new_74283, mapping, chips, nets, 1)
@@ -140,6 +154,9 @@ def create_chips(chip_types, nets):
                        "Ia>b": "Gi", "Oa>b": "Go",
                        "Ia<b": "Li", "Oa<b": "Lo"}
             make_techmap(new_7485, mapping, chips, nets, 0)
+        elif typ == '\\74HC688_1x1EQ8':
+            mapping = {"P{}": "A", "R{}": "B", "G": "E", "P=R": "Q"}
+            make_techmap(new_74688, mapping, chips, nets, 0)
         else:
             raise Exception("%s not handled" % typ)
 
