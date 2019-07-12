@@ -2,7 +2,9 @@ import skidl
 
 # create KiCad nets
 VCC = skidl.Net('VCC')
+VCC.drive = skidl.POWER
 GND = skidl.Net('GND')
+GND.drive = skidl.POWER
 
 def new_cap():
     "a decoupling capacitor"

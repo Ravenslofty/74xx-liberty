@@ -15,6 +15,7 @@ def get_toplevel(data):
             break
     return top
 
+
 def create_nets(top):
     nets = {}
     nets['0']=GND
@@ -22,7 +23,13 @@ def create_nets(top):
     for name, net in top['netnames'].items():
         for bit in net['bits']:
             if not bit in nets:
-                nets[bit] = skidl.Net(name)
+                net = skidl.Net(name)
+                nets[bit] = net
+            else:
+                net = nets[bit]
+            # suppress ERC warnings about unconnected pins
+            if name in top['ports'] and top['ports'][name]['direction']=='input':
+                net.drive = skidl.POWER
 
     return nets
 
@@ -50,6 +57,13 @@ def make_abc(fnew, mapping, instances, nets, base=0):
                 print(chip)
                 raise
 
+        idx+=1
+
+    # suppress ERC warnings about unconnected pins
+    while chip[next(iter(mapping)).format(idx)]:
+        for ch, nl in mapping.items():
+            if "{}" in ch: #only numbered pins
+                chip[ch.format(idx)] += NC
         idx+=1
 
 def make_techmap(fnew, mapping, instances, nets, base=0):
