@@ -204,8 +204,9 @@ library(74series) {
         pin(Y) { direction: output; function: "((S'*A)+(S*B))'"; }
     }
 
-    // 74AC11244 octal buffer
-    cell(74AC11244_8x1BUF) {
+    // A buffer cell needed to make ABC happy
+    // Will get optimized away
+    cell("$_BUF_") {
         area: 2;
         pin(A) { direction: input; }
         pin(Y) { direction: output; function: "A"; }
