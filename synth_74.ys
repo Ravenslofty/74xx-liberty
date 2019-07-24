@@ -1,5 +1,6 @@
 hierarchy -auto-top
 proc
+extract -map ../74_extract.v
 flatten
 opt
 wreduce
@@ -11,7 +12,7 @@ dff2dffe -unmap-mince 8
 pmux2shiftx
 read_verilog -lib ../74_models.v
 read_liberty -lib ../74series.lib
-techmap -map ../74_adder.v -map ../74_cmp.v -map ../74_eq.v
+techmap -map ../74_adder.v -map ../74_cmp.v -map ../74_eq.v -map ../74_counter.v
 synth -run :fine
 opt -full
 # memory_map

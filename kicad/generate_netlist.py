@@ -171,6 +171,9 @@ def create_chips(chip_types, nets):
         elif typ == '\\74HC688_1x1EQ8':
             mapping = {"P{}": "A", "R{}": "B", "G": "E", "P=R": "Q"}
             make_techmap(new_74688, mapping, chips, nets, 0)
+        elif typ == '\\74AC161_1x1COUNT4':
+            mapping = {"D{}": "A", "Q{}": "Q", "~PE": "LOAD", "CET": "ENT", "TC": "RCO", "CP": "CLK"}
+            make_techmap(new_74161, mapping, chips, nets, 0)
         else:
             raise Exception("%s not handled" % typ)
 

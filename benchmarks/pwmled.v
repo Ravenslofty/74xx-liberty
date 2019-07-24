@@ -18,15 +18,15 @@ assign idx = counter[6:0];
 assign level = counter[15:8];
 assign pwm_out = polarity ^ (idx > level);
 
-always @(posedge clk or negedge rst_n)
+always @(posedge clk)
 begin
-    if (rst_n == 1'b0)
+    if (!rst_n)
     begin
-        counter <= 8'd0;
+        counter <= 16'b0000000000000000;
     end
     else
     begin
-        counter <= counter + 8'd1;
+        counter <= counter + 1'b1;
     end
 end
 
