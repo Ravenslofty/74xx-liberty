@@ -1,10 +1,10 @@
 hierarchy -auto-top
 proc
-extract -map ../74_extract.v
 flatten
 opt
 wreduce
 opt
+extract -map ../74_extract.il
 dffsr2dff
 dff2dffe
 opt_merge
