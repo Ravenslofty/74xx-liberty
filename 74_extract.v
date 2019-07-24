@@ -4,8 +4,6 @@ module _74xx_counter8 (
   input [7:0] preset,
   output reg [7:0] counter
 );
-parameter WIDTH = 8;
-
     always @ (posedge clk) begin
       if (!rst) begin
         counter <= preset;
@@ -21,8 +19,6 @@ module _74xx_counter16 (
   input [15:0] preset,
   output reg [15:0] counter
 );
-parameter WIDTH = 16;
-
     always @ (posedge clk) begin
       if (!rst) begin
         counter <= preset;
@@ -38,8 +34,6 @@ module _74xx_counter32 (
   input [32:0] preset,
   output reg [31:0] counter
 );
-parameter WIDTH = 32;
-
     always @ (posedge clk) begin
       if (!rst) begin
         counter <= preset;
