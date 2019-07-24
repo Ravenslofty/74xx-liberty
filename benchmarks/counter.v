@@ -16,11 +16,11 @@ module counter (
     assign led = counter[7];
     
     /* always */
-    always @ (posedge clk or negedge rst) begin
+    always @ (posedge clk) begin
       if (!rst) begin
-        counter <= 0;
+        counter <= 8'b0;
       end else begin
-        counter <= counter + 1;
+        counter <= counter + 1'b1;
       end
     end
 

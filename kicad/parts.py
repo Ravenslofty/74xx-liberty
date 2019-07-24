@@ -166,3 +166,12 @@ def new_74688():
     chip.VCC += VCC
     chip.GND += GND
     return chip
+
+def new_74161():
+    "4-bit counter"
+    chip = skidl.Part('74xx', '74LS161', footprint="Package_DIP:DIP-16_W7.62mm")
+    chip.VCC += VCC
+    chip.GND += GND
+    chip['~MR'] += VCC
+    chip.CEP += VCC
+    return chip
