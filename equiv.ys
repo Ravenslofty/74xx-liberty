@@ -1,0 +1,14 @@
+read_liberty 74series.lib
+read_verilog +/simcells.v
+
+equiv_make \$_MUX_ \74AC11257_4x1MUX2 equiv2
+equiv_induct equiv2
+equiv_status -assert equiv2
+
+equiv_make \$_MUX4_ \74AC153_2x1MUX4 equiv4
+equiv_induct equiv4
+equiv_status -assert equiv4
+
+equiv_make \$_MUX8_ \74AC151_1x1MUX8 equiv8
+equiv_induct equiv8
+equiv_status -assert equiv8

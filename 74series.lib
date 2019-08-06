@@ -148,11 +148,11 @@ library(74series) {
         pin(F) { direction: input; }
         pin(G) { direction: input; }
         pin(H) { direction: input; }
-        pin(S0) { direction: input; }
-        pin(S1) { direction: input; }
-        pin(S2) { direction: input; }
+        pin(S) { direction: input; }
+        pin(T) { direction: input; }
+        pin(U) { direction: input; }
         pin(Y) { direction: output;
-        function: "(S0'*S1'*S2'*A)+(S0*S1'*S2'*B)+(S0'*S1*S2'*C)+(S0*S1*S2'*D)+(S0'*S1'*S2*E)+(S0*S1'*S2'*F)+(S0'*S1*S2*G)+(S0*S1*S2*H)"; }
+        function: "(S'*T'*U'*A)+(S*T'*U'*B)+(S'*T*U'*C)+(S*T*U'*D)+(S'*T'*U*E)+(S*T'*U*F)+(S'*T*U*G)+(S*T*U*H)"; }
     }
 
     // 74AC151 single 8:1 multiplexer, inverting output
@@ -166,11 +166,11 @@ library(74series) {
         pin(F) { direction: input; }
         pin(G) { direction: input; }
         pin(H) { direction: input; }
-        pin(S0) { direction: input; }
-        pin(S1) { direction: input; }
-        pin(S2) { direction: input; }
+        pin(S) { direction: input; }
+        pin(T) { direction: input; }
+        pin(U) { direction: input; }
         pin(Y) { direction: output;
-        function: "((S0'*S1'*S2'*A)+(S0*S1'*S2'*B)+(S0'*S1*S2'*C)+(S0*S1*S2'*D)+(S0'*S1'*S2*E)+(S0*S1'*S2'*F)+(S0'*S1*S2*G)+(S0*S1*S2*H))'"; }
+        function: "((S'*T'*U'*A)+(S*T'*U'*B)+(S'*T*U'*C)+(S*T*U'*D)+(S'*T'*U*E)+(S*T'*U*F)+(S'*T*U*G)+(S*T*U*H))'"; }
     }
 
 
@@ -181,9 +181,9 @@ library(74series) {
         pin(B) { direction: input; }
         pin(C) { direction: input; }
         pin(D) { direction: input; }
-        pin(S0) { direction: input; }
-        pin(S1) { direction: input; }
-        pin(Y) { direction: output; function: "((S0'*S1'*A)+(S0*S1'*B)+(S0'*S1*C)+(S0*S1*D))"; }
+        pin(S) { direction: input; }
+        pin(T) { direction: input; }
+        pin(Y) { direction: output; function: "((S'*T'*A)+(S*T'*B)+(S'*T*C)+(S*T*D))"; }
     }
 
     // 74AC11257 quad 2:1 multiplexer
@@ -206,7 +206,7 @@ library(74series) {
 
     // A buffer cell needed to make ABC happy
     // Will get optimized away
-    cell("$_BUF_") {
+    cell("mybuf") {
         area: 2;
         pin(A) { direction: input; }
         pin(Y) { direction: output; function: "A"; }
