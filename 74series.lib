@@ -206,7 +206,7 @@ library(74series) {
 
     // A buffer cell needed to make ABC happy
     // Will get optimized away
-    cell("mybuf") {
+    cell("$_BUF_") {
         area: 2;
         pin(A) { direction: input; }
         pin(Y) { direction: output; function: "A"; }
