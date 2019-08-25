@@ -23,6 +23,6 @@ opt
 muxcover -mux4 -mux8
 opt_merge
 techmap -map ../74_mux.v
+abc -liberty ../74series.lib -D 100000 -dff
 dfflibmap -liberty ../74series.lib
-abc -liberty ../74series.lib -D 100000
 opt -full
