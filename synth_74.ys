@@ -21,7 +21,7 @@ memory_bram -rules ../bram.rules
 techmap -map +/techmap.v -map ../74_dffe.v 
 opt
 muxcover -mux4 -mux8
-opt
+opt_merge
 techmap -map ../74_mux.v
 dfflibmap -liberty ../74series.lib
 abc -liberty ../74series.lib -D 100000
