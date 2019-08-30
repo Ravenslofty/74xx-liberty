@@ -109,23 +109,23 @@ def create_chips(chip_types, nets):
                 make_abc(new_74158, mapping, instances, nets, 1)
         elif typ == '\\74AC153_2x1MUX4':
             mapping = {"{}A": "A", "{}B": "B", "{}C": "C", "{}D": "D",
-                       "{}Y": "Y", "S0": "S0", "S1": "S1"}
-            select = group_by(pin_getter("S0", "S1"), chips)
+                       "{}Y": "Y", "S0": "S", "S1": "T"}
+            select = group_by(pin_getter("S", "T"), chips)
             for instances in select.values():
                 make_abc(new_74153, mapping, instances, nets, 1)
         elif typ == '\\74AC151_1x1MUX8':
             mapping = {"I0": "A", "I1": "B", "I2": "C", "I3": "D",
                        "I4": "E", "I5": "F", "I6": "G", "I7": "H",
-                       "Z": "Y", "S0": "S0", "S1": "S1", "S2": "S2"}
-            select = group_by(pin_getter("S0", "S1", "S2"), chips)
+                       "Z": "Y", "S0": "S", "S1": "T", "S2": "U"}
+            select = group_by(pin_getter("S", "T", "U"), chips)
             for instances in select.values():
                 #ABC but only one mux per chip
                 make_techmap(new_74151, mapping, instances, nets)
         elif typ == '\\74AC151_1x1MUXI8':
             mapping = {"I0": "A", "I1": "B", "I2": "C", "I3": "D",
                        "I4": "E", "I5": "F", "I6": "G", "I7": "H",
-                       "~Z": "Y", "S0": "S0", "S1": "S1", "S2": "S2"}
-            select = group_by(pin_getter("S0", "S1", "S2"), chips)
+                       "~Z": "Y", "S0": "S", "S1": "T", "S2": "U"}
+            select = group_by(pin_getter("S", "T", "U"), chips)
             for instances in select.values():
                 #ABC but only one mux per chip
                 make_techmap(new_74151, mapping, instances, nets)

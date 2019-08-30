@@ -15,8 +15,8 @@ library(74series) {
     nom_temperature: 25;
     nom_voltage: 5;
 
-    // 74AC11000 quad 2-input NAND gate
-    cell(74AC11000_4x1NAND2) {
+    // 74AC00 quad 2-input NAND gate
+    cell(74AC00_4x1NAND2) {
         area: 3;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
@@ -31,8 +31,8 @@ library(74series) {
         pin(Y) { direction: output; function: "(A+B)'"; }
     }
 
-    // 74AC11004 hex inverter
-    cell(74AC11004_6x1NOT) {
+    // 74AC04 hex inverter
+    cell(74AC04_6x1NOT) {
         area: 2;
         pin(A) {
            direction: input;
@@ -53,8 +53,8 @@ library(74series) {
         }
     }
 
-    // 74AC11008 quad 2-input AND
-    cell(74AC11008_4x1AND2) {
+    // 74AC08 quad 2-input AND
+    cell(74AC08_4x1AND2) {
         area: 3;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
@@ -70,15 +70,6 @@ library(74series) {
         pin(Y) { direction: output; function: "(A*B*C)'"; }
     }
 
-    // 74AC11 triple 3-input AND
-    cell(74AC11_3x1AND3) {
-        area: 4;
-        pin(A) { direction: input; }
-        pin(B) { direction: input; }
-        pin(C) { direction: input; }
-        pin(Y) { direction: output; function: "A*B*C"; }
-    }
-
     // 74AC20 dual 4-input NAND
     cell(74AC20_2x1NAND4) {
         area: 5;
@@ -89,16 +80,16 @@ library(74series) {
         pin(Y) { direction: output; function: "(A*B*C*D)'"; }
     }
 
-    // 74AC11032 quad 2-input OR gate
-    cell(74AC11032_4x1OR2) {
+    // 74AC32 quad 2-input OR gate
+    cell(74AC32_4x1OR2) {
         area: 3;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
         pin(Y) { direction: output; function: "(A+B)"; }
     }
 
-    // 74AC11074 dual D flip-flop with set and reset
-    cell(74AC11074_2x1DFFSR) {
+    // 74AC74 dual D flip-flop with set and reset
+    cell(74AC74_2x1DFFSR) {
         area: 5;
         ff(IQ, IQN) {
            clocked_on: "CLK";
@@ -129,8 +120,8 @@ library(74series) {
         pin(Q) { direction: output; function: "IQ"; }
     } 
 
-    // 74AC11086 quad 2-input XOR gate
-    cell(74AC11086_4x1XOR2) {
+    // 74AC86 quad 2-input XOR gate
+    cell(74AC86_4x1XOR2) {
         area: 3;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
@@ -186,22 +177,13 @@ library(74series) {
         pin(Y) { direction: output; function: "((S'*T'*A)+(S*T'*B)+(S'*T*C)+(S*T*D))"; }
     }
 
-    // 74AC11257 quad 2:1 multiplexer
-    cell(74AC11257_4x1MUX2) {
+    // 74AC257 quad 2:1 multiplexer
+    cell(74AC257_4x1MUX2) {
         area: 4;
         pin(A) { direction: input; }
         pin(B) { direction: input; }
         pin(S) { direction: input; }
         pin(Y) { direction: output; function: "(S'*A)+(S*B)"; }
-    }
-
-    // 74AC158 quad 2:1 multiplexer, inverting
-    cell(74AC158_4x1MUXI2) {
-        area: 4;
-        pin(A) { direction: input; }
-        pin(B) { direction: input; }
-        pin(S) { direction: input; }
-        pin(Y) { direction: output; function: "((S'*A)+(S*B))'"; }
     }
 
     // A buffer cell needed to make ABC happy
@@ -212,8 +194,8 @@ library(74series) {
         pin(Y) { direction: output; function: "A"; }
     }
 
-    // 7416374 sixteen D flip-flop
-    cell(74AC16374_16x1DFF) {
+    // 74AC374 octal D flip-flop
+    cell(74AC374_8x1DFF) {
         area: 2.0625; // amortized clock pin cost
         ff(IQ, IQN) { clocked_on: "CLK"; next_state: "D"; }
         pin(CLK) { direction: input; clock: true; }

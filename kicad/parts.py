@@ -8,9 +8,7 @@ GND.drive = skidl.POWER
 
 def new_cap():
     "a decoupling capacitor"
-    chip = skidl.Part('Device', 'C', footprint="Capacitor_THT:C_Disc_D4.7mm_W2.5mm_P5.00mm")
-    chip[1] += VCC
-    chip[2] += GND
+    pass
 
 def new_74374():
     "8-bit DFF"

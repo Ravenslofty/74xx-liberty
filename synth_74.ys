@@ -11,18 +11,19 @@ opt_merge
 dff2dffe -unmap-mince 8
 pmux2shiftx
 read_verilog -lib ../74_models.v
-read_liberty -lib ../74series.lib
+# read_liberty -lib ../po74g.lib
+read_liberty -lib ../74ac.lib
 techmap -map ../74_adder.v -map ../74_cmp.v -map ../74_eq.v -map ../74_counter.v
 synth -run :fine
-opt -full
+opt -full -mux_undef -mux_bool
 # memory_map
 # opt -full
 memory_bram -rules ../bram.rules
-techmap -map +/techmap.v -map ../74_dffe.v 
+techmap -map +/techmap.v -map ../74_dffe.v
 opt
 muxcover -mux4 -mux8
 opt_merge
 techmap -map ../74_mux.v
-abc -liberty ../74series.lib -D 100000 -dff
-dfflibmap -liberty ../74series.lib
+dfflibmap -liberty ../po74g.lib
+abc -liberty ../po74g.lib -D 100000
 opt -full
