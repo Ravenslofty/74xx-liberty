@@ -24,6 +24,7 @@ opt
 muxcover -mux4 -mux8
 opt_merge
 techmap -map ../74_mux.v
-dfflibmap -liberty ../po74g.lib
-abc -liberty ../po74g.lib -D 100000
+dfflibmap -liberty ../74ac.lib
+abc -liberty ../74ac.lib -D 100000
 opt -full
+opt_clean -purge
