@@ -1,4 +1,4 @@
-read_liberty 74series.lib
+read_liberty 74ac.lib
 read_verilog +/simcells.v
 
 equiv_make \$_MUX_ \74AC11257_4x1MUX2 equiv2
