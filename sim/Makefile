@@ -8,10 +8,10 @@ all: counter.vcd cic5.vcd dspmac_16_40.vcd pwm256.vcd sddac.vcd picorv32.vcd
 
 ../benchmarks/%.v: ;
 
-%.v: ../benchmarks/%.v ../74series.lib ../74_models.v ../74_adder.v ../74_dffe.v ../74_mux.v ../74_cmp.v ../synth_74.ys
+%.v: ../benchmarks/%.v ../74ac.lib ../74_models.v ../74_adder.v ../74_dffe.v ../74_mux.v ../74_cmp.v ../synth_74.ys
 	yosys -q -s ../synth_74.ys -p "write_verilog $@" $<
 
-%.vvp: %.v ../benchmarks/%_tb.v 74series.v ../74_models.v
+%.vvp: %.v ../benchmarks/%_tb.v 74ac.v ../74_models.v
 	iverilog -o $@ $^
 
 %.vcd: %.vvp

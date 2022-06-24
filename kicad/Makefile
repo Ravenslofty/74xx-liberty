@@ -2,7 +2,7 @@
 
 all: boneless.net
 
-%.json: ../benchmarks/%.v ../74series.lib ../74_models.v ../74_adder.v ../74_dffe.v ../74_mux.v ../synth_74.ys
+%.json: ../benchmarks/%.v ../74ac.lib ../74_models.v ../74_adder.v ../74_dffe.v ../74_mux.v ../synth_74.ys
 	yosys -q -s ../synth_74.ys -p "write_json $@" $<
 
 %.net: %.json generate_netlist.py parts.py
