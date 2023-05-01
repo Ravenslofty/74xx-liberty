@@ -4,7 +4,7 @@ flatten
 opt
 wreduce
 opt
-extract -map ../74_extract.il
+extract -map ../74_extract.v
 opt_merge
 pmux2shiftx
 read_verilog -lib ../74_models.v
