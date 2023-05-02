@@ -6,10 +6,7 @@ Yosys library for synthesizing to [74xx-series logic](https://en.wikipedia.org/w
 
 ## Logic
 
-See [74series.lib](./74series.lib).
-
-> Thanks to [Skot Croshere](https://skot9000.com/)
-> for [archiving all the 74xx datasheets](https://skot9000.com/posts/2011/04/28/logic.html) listed here!
+Logical operations are defined as cells with a corresponding logic `function` in [74series.lib](./74series.lib):
 
 - [74AC00](http://web.archive.org/web/20191223205521/http://www.skot9000.com/ttl/datasheets/0.pdf) quad 2-input NAND gate
 - [74AC02](http://web.archive.org/web/20191223210813/http://www.skot9000.com/ttl/datasheets/2.pdf) quad 2-input NOR gate
@@ -27,9 +24,16 @@ See [74series.lib](./74series.lib).
 - [74AC273](http://web.archive.org/web/20210507040113/http://www.skot9000.com/ttl/datasheets/273.pdf) octal D flip-flop with clear
 - [74AC374](http://web.archive.org/web/20191223210342/http://www.skot9000.com/ttl/datasheets/373.pdf) octal D flip-flop
 
+> Thanks to [Skot Croshere](https://skot9000.com/)
+> for [archiving all the 74xx datasheets](https://skot9000.com/posts/2011/04/28/logic.html) listed here!
+
+These models are used to define generic-sized logical celltypes:
+
+- [74_muv.v](./74_mux.v): `$_MUX4_` in terms of 74AC153 and `$_MUX8_` in terms of 74AC151.
+
 ## Arithmetic
 
-[74_models.v](./74_models.v) expresses:
+Arithmetic operations are defined as modules in [74_models.v](./74_models.v):
 
 - [74HC85](http://web.archive.org/web/20191223205930/http://www.skot9000.com/ttl/datasheets/85.pdf) 4-bit magnitude comparator
 - [74AC161](http://web.archive.org/web/20191223210209/http://www.skot9000.com/ttl/datasheets/160.pdf) 4-bit synchronous counter
@@ -37,7 +41,13 @@ See [74series.lib](./74series.lib).
 - [74AC377](http://web.archive.org/web/20191223210749/http://www.skot9000.com/ttl/datasheets/377.pdf) octal D flip-flop with enable
 - [74HC688](http://web.archive.org/web/20191223205712/http://www.skot9000.com/ttl/datasheets/682.pdf) 8-bit magnitude comparator
 
-[74_adder.v](./74_adder.v) expresses `$add` and `$sub` celltypes of generic size in terms of the 74HC85.
+The models are used to define generic-sized arithemtic celltypes:
+
+- [74_adder.v](./74_adder.v): `$add` and `$sub` celltypes in terms of 74HC283.
+- [74_cmp.v](./74_cmp.v): `$lt`, `$gt`, `$le`, and `$ge` in terms of 74HC85.
+- [74_counter.v](./74_counter.v): 8, 16, and 32 -bit counters (as defined in [74_extract.v](./74_extract.v)) in terms of 74S161.
+- [74_dffe.v](./74_dffe.v): `$_DFFE_PP_`, `$_DFFE_PN_`, `$_DFFE_NP_`, and `$_DFFE_NN_` (the 4 possible enable/clock configurations) in terms of 74LSAC377.
+- [74_eq.v](./74_eq.v) `$eq` and `$ne` in terms of the 74HC688.
 
 ## BRAM
 
