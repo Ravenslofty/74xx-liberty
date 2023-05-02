@@ -70,6 +70,15 @@ library(74series) {
         pin(Y) { direction: output; function: "(A*B*C)'"; }
     }
 
+    // 74AC27 triple 3-input NOR
+    cell(74AC27_3x1NOR3) {
+        area: 4;
+        pin(A) { direction: input; }
+        pin(B) { direction: input; }
+        pin(C) { direction: input; }
+        pin(Y) { direction: output; function: "(A+B+C)'"; }
+    }
+
     // 74AC20 dual 4-input NAND
     cell(74AC20_2x1NAND4) {
         area: 5;
