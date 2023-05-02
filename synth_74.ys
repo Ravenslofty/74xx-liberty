@@ -8,8 +8,8 @@ extract -map ../74_extract.v
 opt_merge
 pmux2shiftx
 read_verilog -lib ../74_models.v
-read_liberty -lib ../74ac.lib
-techmap -map ../74_adder.v -map ../74_cmp.v -map ../74_eq.v -map ../74_counter.v
+read_liberty -lib ../74series.lib
+techmap -map ../74_adder.v -map ../74_cmp.v -map ../74_counter.v -map ../74_eq.v
 synth -run :fine
 opt -full -mux_undef -mux_bool
 # memory_map
@@ -20,7 +20,7 @@ opt
 muxcover -mux4 -mux8
 opt_merge
 techmap -map ../74_mux.v
-dfflibmap -liberty ../74ac.lib
-abc -liberty ../74ac.lib -D 100000
+dfflibmap -liberty ../74series.lib
+abc -liberty ../74series.lib -D 100000
 opt -full
 opt_clean -purge

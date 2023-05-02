@@ -6,7 +6,7 @@ Yosys library for synthesizing to [74xx-series logic](https://en.wikipedia.org/w
 
 ## Logic
 
-See [74ac.lib](./74ac.lib).
+See [74series.lib](./74series.lib).
 
 > Thanks to [Skot Croshere](https://skot9000.com/)
 > for [archiving all the 74xx datasheets](https://skot9000.com/posts/2011/04/28/logic.html) listed here!
