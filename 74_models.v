@@ -11,6 +11,25 @@ assign Eo = (A == B) && Ei;
 
 endmodule
 
+module \74AC161_1x1COUNT4 (A, Q, RCO, ENT, CLK, LOAD);
+input [3:0] A;
+input CLK;
+input ENT;
+input LOAD;
+output reg [3:0] Q;
+output RCO;
+
+assign RCO = Q == 4'b1111;
+
+always @ (posedge CLK) begin
+  if (!LOAD) begin
+    Q <= A;
+  end else if (ENT) begin
+    Q <= Q + 1'b1;
+  end
+end
+endmodule
+
 module \74AC283_1x1ADD4 (A, B, CI, S, CO);
 
 input [3:0] A;
@@ -43,23 +62,4 @@ output Q;
 
 assign Q = E || !(A == B);
 
-endmodule
-
-module \74AC161_1x1COUNT4 (A, Q, RCO, ENT, CLK, LOAD);
-input [3:0] A;
-input CLK;
-input ENT;
-input LOAD;
-output reg [3:0] Q;
-output RCO;
-
-assign RCO = Q == 4'b1111;
-
-always @ (posedge CLK) begin
-  if (!LOAD) begin
-    Q <= A;
-  end else if (ENT) begin
-    Q <= Q + 1'b1;
-  end
-end
 endmodule

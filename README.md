@@ -27,6 +27,18 @@ See [74series.lib](./74series.lib).
 - [74AC273](http://web.archive.org/web/20210507040113/http://www.skot9000.com/ttl/datasheets/273.pdf) octal D flip-flop with clear
 - [74AC374](http://web.archive.org/web/20191223210342/http://www.skot9000.com/ttl/datasheets/373.pdf) octal D flip-flop
 
+## Arithmetic
+
+[74_models.v](./74_models.v) expresses:
+
+- [74HC85](http://web.archive.org/web/20191223205930/http://www.skot9000.com/ttl/datasheets/85.pdf) 4-bit magnitude comparator
+- [74AC161](http://web.archive.org/web/20191223210209/http://www.skot9000.com/ttl/datasheets/160.pdf) 4-bit synchronous counter
+- [74AC283](http://web.archive.org/web/20230122205655/http://www.skot9000.com/ttl/datasheets/283.pdf) 4-bit binary full adder
+- [74AC377](http://web.archive.org/web/20191223210749/http://www.skot9000.com/ttl/datasheets/377.pdf) octal D flip-flop with enable
+- [74HC688](http://web.archive.org/web/20191223205712/http://www.skot9000.com/ttl/datasheets/682.pdf) 8-bit magnitude comparator
+
+[74_adder.v](./74_adder.v) expresses `$add` and `$sub` celltypes of generic size in terms of the 74HC85.
+
 ## BRAM
 
 See [bram.rules](./bram.rules).
