@@ -70,15 +70,6 @@ library(74series) {
         pin(Y) { direction: output; function: "(A*B*C)'"; }
     }
 
-    // 74AC27 triple 3-input NOR
-    cell(74AC27_3x1NOR3) {
-        area: 4;
-        pin(A) { direction: input; }
-        pin(B) { direction: input; }
-        pin(C) { direction: input; }
-        pin(Y) { direction: output; function: "(A+B+C)'"; }
-    }
-
     // 74AC20 dual 4-input NAND
     cell(74AC20_2x1NAND4) {
         area: 5;
@@ -87,6 +78,15 @@ library(74series) {
         pin(C) { direction: input; }
         pin(D) { direction: input; }
         pin(Y) { direction: output; function: "(A*B*C*D)'"; }
+    }
+
+    // 74AC27 triple 3-input NOR
+    cell(74AC27_3x1NOR3) {
+        area: 4;
+        pin(A) { direction: input; }
+        pin(B) { direction: input; }
+        pin(C) { direction: input; }
+        pin(Y) { direction: output; function: "(A+B+C)'"; }
     }
 
     // 74AC32 quad 2-input OR gate
@@ -114,20 +114,6 @@ library(74series) {
         pin(D) { direction: input; }
         pin(Q) { direction: output; function: "IQ"; }
     }
-
-    // 74AC273 octal D flip-flop with common reset
-    cell(74AC273_8x1DFFR) {
-	area: 2.25; // amortized clock and reset cost
-        ff(IQ, IQN) {
-           clocked_on: "CLK";
-           next_state: "D";
-           clear: "C'";
-        }
-        pin(CLK) { direction: input; clock: true; }
-        pin(C) { direction: input; }
-        pin(D) { direction: input; }
-        pin(Q) { direction: output; function: "IQ"; }
-    } 
 
     // 74AC86 quad 2-input XOR gate
     cell(74AC86_4x1XOR2) {
@@ -173,7 +159,6 @@ library(74series) {
         function: "((S'*T'*U'*A)+(S*T'*U'*B)+(S'*T*U'*C)+(S*T*U'*D)+(S'*T'*U*E)+(S*T'*U*F)+(S'*T*U*G)+(S*T*U*H))'"; }
     }
 
-
     // 74AC153 dual 4:1 multiplexer
     cell(74AC153_2x1MUX4) {
         area: 7;
@@ -195,13 +180,20 @@ library(74series) {
         pin(Y) { direction: output; function: "(S'*A)+(S*B)"; }
     }
 
-    // A buffer cell needed to make ABC happy
-    // Will get optimized away
-    cell("$_BUF_") {
-        area: 2;
-        pin(A) { direction: input; }
-        pin(Y) { direction: output; function: "A"; }
-    }
+    // 74AC273 octal D flip-flop with common reset
+    cell(74AC273_8x1DFFR) {
+        area: 2.25; // amortized clock and reset cost
+        ff(IQ, IQN) {
+           clocked_on: "CLK";
+           next_state: "D";
+           clear: "C'";
+        }
+        pin(CLK) { direction: input; clock: true; }
+        pin(C) { direction: input; }
+        pin(D) { direction: input; }
+        pin(Q) { direction: output; function: "IQ"; }
+    } 
+
 
     // 74AC374 octal D flip-flop
     cell(74AC374_8x1DFF) {
@@ -211,4 +203,13 @@ library(74series) {
         pin(D) { direction: input; }
         pin(Q) { direction: output; function: "IQ"; }
     }
+
+    // A buffer cell needed to make ABC happy
+    // Will get optimized away
+    cell("$_BUF_") {
+        area: 2;
+        pin(A) { direction: input; }
+        pin(Y) { direction: output; function: "A"; }
+    }
+
 }
