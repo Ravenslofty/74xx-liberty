@@ -2,3 +2,6 @@ stat/*.stat
 sim/*.v
 sim/*.vcd
 sim/*.vvp
+test/*.out
+test/*.spec
+74series.v
