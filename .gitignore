@@ -3,5 +3,7 @@ sim/*.v
 sim/*.vcd
 sim/*.vvp
 test/*.out
-test/*.spec
+test/*.stat
 74series.v
+test/*.pid
+test/*.dot

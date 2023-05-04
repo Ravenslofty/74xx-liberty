@@ -11,13 +11,16 @@ format: $(74XX_SRC) $(wildcard sim/*.v) $(wildcard test/*.v)
 # Tests
 #
 test: \
-	test/and.test
+	test/and_tb.test
 
-test/%.v: test/%_tb.v $(74XX_SRC) synth_74.ys
+test/%_74.v: test/%.v $(74XX_SRC) synth_74.ys
 	yosys -q -s synth_74.ys -p "write_verilog $@" $<
 
-test/%.stat: test/%.v
+test/%.stat: test/%_74.v
 	yosys -q -s synth_74.ys -p "tee -o $@ stat" $<
+
+test/%.dot: test/%_74.v 74series.v
+	yosys -q -s synth_74.ys -p "show -lib 74series.v -width -prefix $(basename $@)" $^
 
 test/%.out: test/%.stat
 	./ic_count.py $^ > $@
@@ -63,4 +66,6 @@ sim/%.vcd: sim/%.vvp
 	vvp $<
 
 clean:
-	rm sim/*.v sim/*.vvp sim/*.vcd
+	rm -f \
+		sim/*.{v,vvp,vcd} \
+		test/*.{_74.v,dot,stat,out,pid}
