@@ -19,7 +19,7 @@ test/%_74.v: test/%.v $(74XX_SRC) synth_74.ys
 test/%.stat: test/%_74.v
 	yosys -q -s synth_74.ys -p "tee -o $@ stat" $<
 
-test/%.dot: test/%_74.v 74series.v
+test/%_74.dot: test/%_74.v 74series.v
 	yosys -q -s synth_74.ys -p "show -lib 74series.v -width -prefix $(basename $@)" $^
 
 test/%.out: test/%.stat

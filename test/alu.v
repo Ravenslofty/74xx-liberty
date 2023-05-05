@@ -10,7 +10,7 @@ module alu (
 );
   wire _cf;
 
-  assign {_cf, s} = a + (b ^ {8{su}});
+  assign {_cf, s} = a + (b ^ {8{su} + 1});
 
   always @(posedge clk) begin
     if (fi) begin

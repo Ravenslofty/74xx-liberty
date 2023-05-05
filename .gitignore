@@ -7,3 +7,4 @@ test/*.stat
 74series.v
 test/*.pid
 test/*.dot
+*.ilang
