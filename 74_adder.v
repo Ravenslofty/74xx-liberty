@@ -17,6 +17,7 @@ module _80_74AC283_add (
 
   wire _TECHMAP_FAIL_ = Y_WIDTH <= 1;
 
+  localparam CARRY_OPT = (Y_WIDTH % 4) == 1;
   localparam WIDTH = ((Y_WIDTH + 3) / 4) * 4;
 
   wire [Y_WIDTH-1:0] A_buf, B_buf;
@@ -46,14 +47,27 @@ module _80_74AC283_add (
 
   genvar i;
   generate
-    for (i = 0; i < WIDTH; i = i + 4) begin : slice
-      \74AC283_1x1ADD4 adder_i (
-          .A (AA[i+3:i]),
-          .B (BB[i+3:i]),
-          .CI(C[i]),
-          .S (YY[i+3:i]),
-          .CO(C[i+4]),
-      );
+    if (CARRY_OPT) begin
+      for (i = 0; i < WIDTH - 4; i = i + 4) begin : slice
+        \74AC283_1x1ADD4 adder_i (
+            .A (AA[i+3:i]),
+            .B (BB[i+3:i]),
+            .CI(C[i]),
+            .S (YY[i+3:i]),
+            .CO(C[i+4]),
+        );
+        assign YY[Y_WIDTH-1] = C[Y_WIDTH-1];
+      end
+    end else begin
+      for (i = 0; i < WIDTH; i = i + 4) begin : slice
+        \74AC283_1x1ADD4 adder_i (
+            .A (AA[i+3:i]),
+            .B (BB[i+3:i]),
+            .CI(C[i]),
+            .S (YY[i+3:i]),
+            .CO(C[i+4]),
+        );
+      end
     end
   endgenerate
 
